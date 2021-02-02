@@ -1,0 +1,72 @@
+//Please don't change class name 'Main'
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+  public static void main(String[] args) throws IOException {
+		/*트리 구현하고 중위순회 출력하기*/
+
+		Tree tree = new Tree();
+		tree.addNode(6);
+		tree.addNode(3);
+		tree.addNode(9);
+		tree.addNode(1);
+		tree.addNode(5);
+		tree.addNode(7);
+		tree.addNode(11);
+		
+		tree.inOrder(tree.root);
+  }
+}
+
+class Node{
+	int value;
+	Node left;
+	Node right;
+}
+
+class Tree{
+	Node root;
+	
+	public void addNode(int value){
+		//System.out.println(value);
+		if(root == null){
+			Node node = new Node();
+			node.value = value;
+			root = node;
+		}else{
+			addNode(value, root);
+		}
+	}
+	
+	public void addNode(int value, Node root){
+		if(value <= root.value){
+			if(root.left == null){
+				Node node = new Node();
+				node.value = value;
+				node.left = node;	//여기 틀림.. 'root.left = node;' 라고 해야함
+			}else{
+				addNode(value, root.left);
+			}
+		}else{
+			if(root.right == null){
+				Node node = new Node();
+				node.value = value;
+				root.right = node;
+			}else{
+				addNode(value, root.right);
+			}
+		}
+	}
+	
+	public void inOrder(Node root){
+		if(root == null){
+			return;
+		}
+		
+		inOrder(root.left);
+		System.out.print(root.value + " ");
+		inOrder(root.right);
+	}
+}

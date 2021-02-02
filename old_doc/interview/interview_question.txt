@@ -1,0 +1,11 @@
+1. 코드 리뷰
+2. string과 stringbuilder의 차이 / 자료구조로 설명
+3. http protocol 에 대해 설명
+4. rest api 에 대해 설명
+5. filter / intercepter 에 대해 설명, 차이점
+6. spring 특징 중 di 에 대해 설명
+7. 제일 크게 쳤던 사고
+8. 기술력있게 했던 개발건
+9. spring 버전
+10. radix sort 속도
+11. svn lock 사전 방지위해 작업한 내용

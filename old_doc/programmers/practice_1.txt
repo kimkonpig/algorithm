@@ -1,0 +1,24 @@
+import java.util.*;
+
+class Solution {
+    public long solution(long n) {
+        //각 자리수의 숫자들을 string 배열에 담는다
+        //배열을 합쳐 long형으로 반환한다
+        
+        long answer = 0;
+        
+        String str = String.valueOf(n);
+        String[] strArr = new String[str.length()];
+        strArr = str.split("");
+        
+        Arrays.sort(strArr, Collections.reverseOrder());
+        
+        String tmpAns = "";
+        for(int i=0 ; i<str.length() ; i++){
+            tmpAns += strArr[i];
+        }
+        
+        answer = Long.parseLong(tmpAns);
+        return answer;
+    }
+}

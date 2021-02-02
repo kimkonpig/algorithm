@@ -1,0 +1,198 @@
+Book : Cracking the coding interview 6/E
+
+Big-O 추가문제 (p.83)
+
+VI_1_Q) 다음은 a와 b를 곱하는 코드이다. 수행 시간을 구하시오.
+
+int product(int a, int b){
+	int sum = 0;
+	for(int i=0 ; i<b ; i++){
+		sum += a;
+	}
+	return sum;
+}
+
+VI_1_A) O(b)
+		: for loop가 b번 반복
+		
+VI_2_Q) 다음은 a^b를 계산하는 코드이다. 수행 시간을 구하시오.
+
+int power(int a, int b){
+	if(b<0){
+		return 0; //에러
+	}else if(b==0){
+		return 1;
+	}else{
+		return a * power(a, b-1);
+	}
+}
+
+VI_2_A) O(b)
+		: 재귀호출을 할 때마다 b가 1씩 줄어들기 때문에 b번 반복
+		
+VI_3_Q) 다음은 a%b를 계산하는 코드이다. 수행 시간을 구하시오.
+
+int mod(int a, int b){
+	if(b<=0){
+		return -1;
+	}
+	int div = a / b;
+	return a - div * b;
+}
+
+VI_3_A) O(1)
+		: 상수 시간에 동작
+		
+VI_4_Q) 다음은 자연수 나눗셈을 수행하는 코드이다. 수행 시간을 구하시오. (단 a와 b는 모두 양의 정수이다.)
+
+int div(int a, int b){
+	int count = 0;
+	int sum = b;
+	while(sum <= a){
+		sum += b;
+		count++;
+	}
+	return count;
+}
+
+VI_4_A) O(a/b)
+		: 변수 count의 값은 정확히 a/b가 된다. while loop는 count의 값만큼 반복하므로 정확히 a/b번 반복
+		
+VI_5_Q) 다음은 '자연수'의 제곱근을 구하는 코드이다. 제곱근이 자연수가 아닐 때 완전제곱(perfect squares)이 아니라면 -1을 반환해야 한다. 완전제곱근인지 아닌지 확인하기 위해 다음과 같은 유추 방식을 이용한다. n이 100이라면 먼저 50을 의심해 본다. 50이 너무 크다면 그보다 작은 숫자로 시도해 본다. 이와 같은 방식으로 1부터 50 사이의 숫자를 절반씩 시도해 본다. 이 코드의 수행시간을 구하시오.
+
+int sqrt(int n){
+	return sqrt_helper(n, 1, n);
+}
+
+int sqrt_helper(int n, int min, int max){
+	if(max < min) return -1; //제곱근이 없다.
+	
+	int guess = (min + max) / 2; //반으로 쪼개서 유추
+	if(guess * guess == n){
+		return guess; //제곱근을 찾았다.
+	}else if(guess * guess < n){ //제곱근을 너무 작게 잡았다.
+		return sqrt_helper(n, guess+1, max); //더 큰 값으로 유추 시도
+	}else{ //제곱근을 너무 크게 잡았다.
+		return sqrt_helper(n, guess-1, max); //더 작은 값으로 유추 시도
+	}
+}
+
+VI_5_A) O(log n)
+		: 제곱근을 찾기 위해 기본적으로 이진 탐색을 사용한다. 따라서 수행 시간은 O(log n)
+		
+VI_6_Q) 다음은 '자연수' 제곱근을 구하는 코드이다. 만약 완전제곱(제곱근이 자연수가 아닐 때)이 아니라면 -1을 반환해야 한다. 완전제곱근인지 아닌지 확인하기 위해 숫자를 하나씩 증가시켜가면서 현재 숫자가 정답인지 아니면 정답을 넘어갔는지 확인한다. 이 코드의 수행시간을 구하시오.
+
+int sqrt(int n){
+	for(int guess=1 ; guess * guess <= n ; guess++){
+		if(guess * guess == n){
+			return guess;
+		}
+	}
+	return -1;
+}
+
+VI_6_A) O(√n)
+		: guess * guess > n 일 때 for loop 중단되므로 단순히 O(√n) 으로 생각하면 된다.
+		
+VI_7_Q) 이진 탐색 트리가 균형 잡혀있지 않다고 가정했을 때, 이 트리에서 어떤 원소를 찾는데 걸리는 시간(최악의 경우)을 구하시오.
+
+VI_7_A) O(n)
+		: 원소를 찾는 데 걸리는 최대 시간은 트리의 깊이와 같다. 단, 트리의 모양이 한쪽으로 길게 늘어진 리스트 형태일 수도 있다.(균형 잡혀있지 않은 트리) 이럴 경우에 트리의 깊이는 n 이므로 (최악의 경우) 시간 복잡도는 O(n)
+		
+VI_8_Q) 이진 트리에서 특정 값을 찾고자 한다. 이 이진 트리가 이진 탐색 트리(binary search tree)가 아닐 때 시간 복잡도를 구하시오.
+
+VI_8_A) O(n)
+		: 노드에 어떤 순서와 관련된 속성이 없다면 모든 노드를 다 훑으며 탐색하는 수밖에 없다.
+		
+VI_9_Q) appendToNew는 배열에 새로운 값을 추가할 때마다 더 크기가 큰 배열을 새로 만든 뒤 해당 배열을 반환하는 함수이다. 이 함수는 copyArray 함수를 만들 때 반복적으로 호출하기 위해 사용된다. 배열을 복사하는 데 걸리는 시간을 구하시오.
+
+int[] copyArray(int[] array){
+	int[] copy = new int[0];
+	for(int value : array){
+		copy = appendToNew(copy, value);
+	}
+	return copy;
+}
+
+int[] appendToNew(int[] array, int value){
+	//copy all elements over to new array
+	int[] bigger = new int[array.length + 1];
+	for(int i=0 ; i<array.length ; i++){
+		bigger[i] = array[i];
+	}
+	//새로운 원소 추가
+	bigger[bigger.length-1] = value;
+	return bigger;
+}
+
+VI_9_A) O(n^2)
+		: n은 배열에 있는 원소의 개수, appendToNew를 처음 호출 하면 원소 한 개 복사, 차례로 두 개 복사,,,, 과정 반복하여 결국 n 개 복사. 따라서 총 수행 시간은 1부터 n까지의 합인 n(n+1)/2 -> 지배적이지 않은 항 무시하여 답은 O(n^2)
+		
+VI_10_Q) 다음은 숫자의 각 자리수를 합하는 코드이다. 이 코드의 big-O 시간을 구하시오.
+
+int sumDigits(int n){
+	int sum = 0;
+	while(n > 0){
+		sum += n % 10;
+		n /= 10;
+	}
+	return sum;
+}
+
+VI_10_A) O(log n)
+		: 수행 시간은 자릿수의 개수와 같다. 자릿수의 개수가 d라면 해당 숫자는 아무리 커도 10^d 보다는 작을 수 밖에 없다. (두 자리라면 가능한 최대 숫자는 99니까 10^2인 100보다 무조건 작다.) 만약 n = 10^d 라면 d = log n이 되고, 따라서 수행 시간은 O(log n)
+		
+VI_11_Q) 다음은 정렬된 문자열 중 길이가 k인 모든 문자열을 출력하는 코드이다. 이 코드는 길이가 k인 모든 문자열을 생성한 뒤 해당 문자열이 정렬되어 있는지 확인하는 과정을 거친다. 이 코드의 수행 시간을 구하시오. (이해안됨!!)
+
+int numChars = 26;
+void printSortedStrings(int remaining){
+	printSortedStrings(remaining, "");
+}
+void printSortedStrings(int remaining, String prefix){
+	if(remaining == 0){
+		if(isInOrder(prefix)){ //정렬 확인
+			System.out.println(prefix);
+		}
+	}else{
+		for(int i=0 ; i<numChars ; i++){
+			char c = ithLetter(i);
+			printSortedStrings(remaining - 1, prefix + c);
+		}
+	}
+}
+boolean isInOrder(String s){
+	for(int i=1 ; i<s.length() ; i++){
+		int prev = ithLetter(s.charAt(i-1));
+		int curr = ithLegger(s.charAt(i));
+		if(prev > curr){
+			return false;
+		}
+	}
+	return true;
+}
+char ithLetter(int i){
+	return (char)(((int) 'a') + i);
+}
+
+VI_11_A) O(kc^k)
+		: k=문자열의 길이, c=알파벳 갯수
+		
+VI_12_Q) 다음은 두 배열의 교집합의 개수를 세어 주는 코드이다. 각 배열에 중복된 값은 없다고 가정해도 좋다. 교집합을 구하기 위해 배열 하나(배열 b)를 정렬한 뒤 이진 탐색으로 배열 a를 차례로 살펴보면서 해당 원소가 b에 존재하는지 확인한다. 이 코드의 수행 시간을 구하시오.
+
+int intersection(int[] a, int[] b){
+	mergesort(b);
+	int intersect = 0;
+	
+	for(int x : a){
+		if(binarySearch(b, x) >= 0){
+			intersect++;
+		}
+	}
+	return intersect;
+}
+
+VI_12_A) O(b㏒b+a㏒b)
+		: 배열 b정렬하는 데 O(b㏒b) 소요, 그 후 a의 각 원소마다 이진 탐색 수행하는 데 O(㏒b) 소요, a의 모든 원소에 적용하면 O(a㏒b)
+		각 소요시간을 합하면 O(b㏒b+a㏒b)
+		
+
