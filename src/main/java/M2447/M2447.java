@@ -1,10 +1,10 @@
 import java.util.*;
 
-//수정필요 2021.02.08
 public class M2447 {
+	static StringBuilder sb = new StringBuilder();
+	
 	public static void main(String[] args) throws Exception{
 		int n;
-		StringBuilder sb = new StringBuilder();
 		
 		Scanner sc = new Scanner(System.in);
 		n = sc.nextInt();
@@ -16,16 +16,16 @@ public class M2447 {
 				 
 				 while(x>0){
 					 if(x%3==1 && y%3==1){
-						 sb.append(" ");
 						 break;
 					 }
 					 x = x/3;
 					 y = y/3;
 				 }
-				 sb.append("*");
+				 sb.append(x==0 ? "*" : " ");
 			 }
 			 sb.append("\n");
 		 }
-		 System.out.println(sb);
+		 System.out.print(sb);
     }
 }
+
