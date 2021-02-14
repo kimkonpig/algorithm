@@ -4,7 +4,7 @@
 2. 웹에서만 사용하는 프로토콜로 TCP/IP 기반으로 서버와 클라이언트 간의 요청과 응답을 전송한다.
 
 ### HTTP의 특징
-1. TCP 기반의 통신 방식
+1. [TCP](https://github.com/kimkonpig/algorithm/blob/master/old_doc/interview/TCP.md) 기반의 통신 방식
 2. 비연결 지향
 - 브라우저를 통해 사용자의 요청으로 서버와 접속, 요청에 대한 응답 데이터를 전송 후 연결 종료
 - 간단하기 때문에 자원이 적게 드는 장점이 있다.
