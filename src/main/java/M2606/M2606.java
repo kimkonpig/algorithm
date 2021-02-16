@@ -1,8 +1,52 @@
+
 import java.util.*;
 
 public class M2606 {
-	//BFS
-
+	//DFS start
+	static ArrayList<Integer>[] a;
+	static boolean[] visit;
+	static int cnt = 0;
+	
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		int totCnt = sc.nextInt(); //컴퓨터의 수
+		int totLine = sc.nextInt(); //간선의 수
+		
+		a = new ArrayList[totCnt+1];
+		visit = new boolean[totCnt+1];
+		
+		for(int i=1 ; i<totCnt+1 ; i++){
+			a[i] = new ArrayList<Integer>();
+		}
+		
+		for(int i=0 ; i<totLine ; i++){
+			int num1 = sc.nextInt();
+			int num2 = sc.nextInt();
+			
+			a[num1].add(num2);
+			a[num2].add(num1);
+		}
+		
+		dfs(1);
+		
+		for(boolean i : visit){
+			if(i==true) cnt++;
+		}
+		
+		System.out.print(cnt-1); //1번컴퓨터 제외
+	}
+	
+	static void dfs(int x){
+		visit[x] = true;
+		
+		for(int i : a[x]){
+			if(visit[i] == false) dfs(i);
+		}
+	}
+	//DFS end
+	
+	//BFS start
+	/*
 	static int node[][]; //그래프 배열
 	static int visit[]; //방문체크 배열
 	
@@ -46,4 +90,6 @@ public class M2606 {
 		}
 		System.out.print(cnt);
 	}
+	*/
+	//BFS end
 }
