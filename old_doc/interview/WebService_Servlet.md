@@ -52,6 +52,56 @@
       - 주로 새로운 리소스를 생성할 때 사용한다.(DB에 영향 있음)
       - 같은 요청을 여러번 보내면 각각 다른 응답이 올 수 있다.(Non-Idempotent)
       - 뒤로가기/새로고침 시 데이터가 다시 전달된다.
-        
+
+## Servlet은 뭐야?
+웹 기반 요청에 대한 동적인 처리가 가능한 하나의 클래스이다.
+- Server Side에서 돌아가는 Java Program
+- 개발자가 작성해야 하는 부분!
+
+### Servlet의 기본적인 동작 과정
+![image](https://user-images.githubusercontent.com/56284234/108310571-ee5e8f00-71f6-11eb-8fde-a09482eaedc7.png)<br/>
+1. 웹 서버는 HTTP Request를 Web Container(=Servlet Container)에게 전달한다.
+2. 요청 전달받은 Web Container는 HttpServletRequest, HttpServletResponse 객체를 생성한다.
+3. web.xml 기반으로 HTTP Request가 어떤 URL과 매핑되어 있는지(어느 Servlet에 대한 요청인지) 확인한다.
+4. Web Container는 service() 메소드 호출하기 전, Servlet 객체를 메모리에 올린다.
+- Web Container는 해당 Servlet 파일을 컴파일한다.(.class 파일 생성)
+- .class 파일을 메모리에 올려 Servlet 객체 생성한다.
+- 메모리에 로드될 때 init() 메소드가 실행된다.(Servlet 객체 초기화)
+5. Web Container는 Request가 올 때마다 Thread를 생성하여 처리한다.
+- 각 Thread는 Servlet의 단일 객체에 대한 service() 메소드를 실행한다.
+6. 해당 Servlet에서 service() 메소드를 호출한 후,<br/>
+클라이언트의 GET, POST 여부에 따라 doGet() 또는 doPost()를 호출한다.
+7. doGet() 또는 doPost() 메소드는 동적 페이지를 생성한 후 HttpServletResponse 객체에 응답을 보낸다.
+8. 응답이 끝나면 HttpServletRequest, HttpServletResponse 두 객체를 소멸시킨다.
+
+### Web Container(=Servlet Container)는 뭐야?
+서블릿을 관리해주는 컨테이너다
+- 클라이언트의 Request을 받고 Response를 할 수 있도록 웹서버와 통신한다.
+- 대표적인 예) 톰캣(Tomcat) : 웹 서버와 통신하며 JSP와 Servlet이 작동하는 환경 제공
+
+#### Web Container(=Servlet Container)의 역할
+1. Servlet과 웹 서버와의 통신을 지원한다.
+- 소켓 생성, listen, accept 등의 복잡한 과정을 Web Container는 API로 손쉽게 통신할 수 있게 한다.
+- 개발자는 Servlet 구현에만 신경쓰면 된다.
+2. Servlet 생명주기를 관리한다.
+- Servlet 파일을 로드하여 객체화하고, init() -> service() 메소드를 호출한다.
+- Servlet 종료 시 적절하게 GC 실행한다.
+3. 멀티Thread 지원 및 관리
+- Web Container는 Request당 새로운 자바 Thread를 생성한다.
+- Request에 해당하는 Servlet 메소드가 실행되고 나면(service()가 return하면) Thread는 제거된다.
+
+#### Servlet 생명주기(init -> service -> destroy)
+1. 클라이언트의 Request가 들어오면 Web Container는 해당 Servlet이 메모리에 있는지 확인한다.
+2. 해당 Servlet이 메모리에 없는 경우 init() 메소드를 호출하여 메모리에 로드한다.
+- init() 메소드는 처음 한번만 실행된다.
+- 실행 중 Servlet이 변경될 경우, 기존 Servlet을 파괴하고 init() 메소드를 통해 변경내용을 다시 메모리에 로드한다.
+3. init() 메소드가 호출된 후 Request에 따라 service() 메소드를 통해 doGet() 또는 doPost()로 응답을 분기한다.
+- Web Container가 Request를 받으면 가장 먼저 HttpServletRequest, HttpServletResponse 객체를 생성하는데 이 객체를 사용한다.
+4. Web Container가 Servlet에 종료 요청하면 destroy() 메소드가 호출된다.
+- Web Application이 갱신되거나 WAS가 종료될 때 Servlet에 종료 요청 **(확인필요!!)**
+- destroy() 메소드는 한번만 실행된다.
+- 종료 시 처리해야하는 작업은 destroy() 메소드를 오버라이딩하여 구현한다.
+
+
 [출처1](https://blog.naver.com/dhboys92/222214149201)<br/>
 [출처2](https://gmlwjd9405.github.io/2018/10/28/servlet.html)
