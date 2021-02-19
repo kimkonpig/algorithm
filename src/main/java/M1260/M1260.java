@@ -1,3 +1,5 @@
+package M1260;
+
 import java.util.*;
 
 public class M1260 {

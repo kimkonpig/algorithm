@@ -1,6 +1,7 @@
+package M1012;
+
 import java.util.*;
 
-//진행중
 public class M1012 {
 
 	static int M; //가로길이(1~50)
@@ -11,7 +12,7 @@ public class M1012 {
 	static boolean[][] visit; //방문체크
 	
 	//result에 각 테스트케이스별 배추흰지렁이 마리 수 저장
-	static ArrayList<Integer> result = new ArrayList<Integer>();
+	static ArrayList<Integer> result;
 	static int count; //각 테스트케이스별 배추흰지렁이 카운트
 	
 	static int[] dx = {-1, 1, 0, 0}; //상하좌우 체크
@@ -39,8 +40,10 @@ public class M1012 {
 					visit[i][j] = false;
 				}
 			}
-			
-			
+
+			//result 생성
+			result = new ArrayList<>();
+
 			//카운트 0 초기화
 			count = 0;
 			
@@ -54,25 +57,22 @@ public class M1012 {
 
 			for(int i=0 ; i<M ; i++){
 				for(int j=0 ; j<N ; j++){
-					if(map[i][j]==1 && !visit[i][j])
+					//배추가 심어져 있고 방문한 적이 없다면 dfs() 실행
+					if(map[i][j]==1 && !visit[i][j]) {
 						dfs(i, j);
-					if(count>0){
-						result.add(count);
-						count = 0;
+						totResult[tc]++;
 					}
 				}
 			}
-			totResult[tc] = result.size();
 		}
-		
-		for(int i=0 ; i<totResult.length ; i++){
-			System.out.println(totResult[i]);
+
+		for(int i : totResult){
+			System.out.println(i);
 		}
 	}
 	
 	static void dfs(int x, int y){
-		visit[x][y] = true;
-		count++;
+		visit[x][y] = true; //방문체크
 		
 		for(int i=0 ; i<4 ; i++){
 			int nx = x + dx[i];
@@ -82,6 +82,5 @@ public class M1012 {
 				dfs(nx, ny);
 			}
 		}
-		
 	}
 }
