@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class M2667 {
+public class M2667_DFS {
 	
 	/*
 	 * DFS
