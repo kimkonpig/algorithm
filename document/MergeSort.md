@@ -44,67 +44,69 @@
 - 두 개의 배열을 병합할 때 저장할 배열이 추가로 필요하므로 공간복잡도는 O(N)이다.
 - 다른 정렬 알고리즘과 달리 인접한 값들 간의 상호 자리 교대(swap)이 일어나지 않는다.
 
-### [코드 예제](src/main/java/M2751/M2751.java)
+### 코드 예제1
+[링크 참고](src/main/java/M2751/M2751.java)
+
+### 코드 예제2
 ```java
-package study;
+public class merge {
 
-import java.io.*;
+	final static int n = 8;
 
-//https://www.daleseo.com/sort-merge/
-//mergeSort 
-public class M2751 {
+	public static void _merge(int left, int right, int[] a) {
+		int mid = (left + right) / 2;
+		int lcur = left;
+		int rcur = mid + 1;
 
-	static int[] sorted; //정렬한 결과를 담을 배열
-	static int[] arr; //입력받은 배열
-	
-	public static void main(String[] args) throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    
-		int N = Integer.parseInt(br.readLine());
-  
-		arr = new int[N];
-    
-		for(int i=0 ; i<N ; i++){
-			arr[i] = Integer.parseInt(br.readLine());
+		int temp[] = new int[n];
+		int tcur = left;
+
+		while (lcur <= mid && rcur <= right) {
+			if (a[lcur] <= a[rcur]) {
+				temp[tcur] = a[lcur];
+				tcur++;
+				lcur++;
+			} else {
+				temp[tcur] = a[rcur];
+				tcur++;
+				rcur++;
+			}
 		}
 		
-		sorted = new int[N];
-    
-		mergeSort(0, N-1); //병합정렬 실행, start와 end 값을 파라미터로 넘긴다.
+		if(lcur > mid){
+			for(int i=rcur ; i<=right ; i++){
+				temp[tcur] = a[i];
+				tcur++;
+			}
+		}else{
+			for(int i=lcur ; i<=mid ; i++){
+				temp[tcur] = a[i];
+				tcur++;
+			}
+		}
 		
-    //결과 출력
-		for(int i : sorted){
-			System.out.println(i);
+		for(int i=left ; i<=right ; i++){
+			a[i] = temp[i];
 		}
 	}
-	
-	static void mergeSort(int start, int end){
-		if(start < end){
-			int mid = (start+end) / 2; //분할, 병합을 위한 중간값
-      
-      //분할&병합
-			mergeSort(0, mid);
-			mergeSort(mid+1, end);
-			
-			int p = start;
-			int q = mid+1;
-			int idx = p;
-			
-			while(p<=mid || q<=end){
-				if(q>end || (p<=mid && arr[p]<arr[q])){
-					sorted[idx] = arr[p];
-					p++;
-					idx++;
-				}else{
-					sorted[idx] = arr[q];
-					q++;
-					idx++;
-				}
-			}
-			
-			for(int i=start ; i<=end ; i++){
-				arr[i] = sorted[i];
-			}
+
+	public static void mergeSort(int left, int right, int a[]) {
+		if (left < right) {
+			int mid = (left + right) / 2; // Divide
+
+			mergeSort(left, mid, a); // Conquer
+			mergeSort(mid + 1, right, a); // Conquer
+			_merge(left, right, a); // Merge
+		}
+	}
+
+	public static void main(String[] args) {
+		int a[] = { 4, 7, 3, 1, 8, 2, 5, 6 };
+
+		mergeSort(0, n - 1, a);
+
+		for (int i = 0; i < n; i++) {
+			System.out.print(a[i] + " ");
 		}
 	}
 }
