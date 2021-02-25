@@ -6,8 +6,8 @@ import java.io.*;
 //mergeSort 
 public class M2751 {
 
-	//static int[] sorted;
 	static int[] arr;
+	static int[] temp;
 
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -16,11 +16,17 @@ public class M2751 {
 		int N = Integer.parseInt(br.readLine());
 		arr = new int[N];
 		
+		/* 계속 시간 초과가 나서 merge()메소드에서 메소드 호출 시마다
+		 * int[] temp = new int[a.length]로 만들어주던 부분을
+		 * static int[] temp로 정적변수로 생성하고 한번만 생성자를 만들어주니
+		 * 시간초과가 해결되었다.
+		 */
+		temp = new int[N];  
+		
 		for(int i=0 ; i<N ; i++){
 			arr[i] = Integer.parseInt(br.readLine());
 		}
 		
-		//sorted = new int[N]; //정렬한 결과 담을 배열
 		mergeSort(0, N-1, arr); //start, end index
 		
 		for(int i : arr){
@@ -44,8 +50,6 @@ public class M2751 {
 		int mid = (left + right) / 2;
 		int lcur = left;
 		int rcur = mid + 1;
-		
-		int[] temp = new int[a.length];
 		int tcur = left;
 		
 		while(lcur <= mid && rcur <= right){
