@@ -193,10 +193,9 @@ public class TestController{
 }
 ```
 
-첫번째 수행 시 -<img src="/Users/konpig/Desktop/스크린샷 2021-03-02 오후 9.51.30.png" alt="스크린샷 2021-03-02 오후 9.51.30" style="zoom:50%;" />
+첫번째 수행 시 - <img width="275" alt="스크린샷 2021-03-02 오후 9 51 30" src="https://user-images.githubusercontent.com/56284234/109652103-b2d2a600-7ba2-11eb-9be5-240a80a29076.png">
 
-두번째 수행 시 - <img src="/Users/konpig/Desktop/스크린샷 2021-03-02 오후 9.51.41.png" alt="스크린샷 2021-03-02 오후 9.51.41" style="zoom:50%;" />
-
+두번째 수행 시 - <img width="245" alt="스크린샷 2021-03-02 오후 9 51 41" src="https://user-images.githubusercontent.com/56284234/109652166-c3831c00-7ba2-11eb-9c95-ce0e118198eb.png">
 
 
 [참고1](https://serverwizard.tistory.com/54) [참고2](https://jaehun2841.github.io/2018/11/07/2018-10-03-spring-ehcache/#ehcache) [참고3](https://jaehun2841.github.io/2018/11/07/2018-11-04-ehcache-config-for-springboot/#ehcachexml-%EC%9E%91%EC%84%B1-ehcache-%EC%84%A4%EC%A0%95%ED%8C%8C%EC%9D%BC) [참고4](https://jojoldu.tistory.com/57) [참고5](http://egloos.zum.com/js7309/v/11143838) [참고6](https://www.ehcache.org/documentation/2.7/configuration/fast-restart.html) [참고7](https://jeong-pro.tistory.com/170)
