@@ -1,0 +1,53 @@
+### SpringBoot JUnit 테스트 시 사용하는 annotation을 정리해보았다.
+
+#### @SpringBootTest
+- 통합테스트를 제공하는 기본적인 SpringBoot Test annotation이다.
+- Application이 실행될 때 설정을 임의로 바꾸어 테스트를 진행할 수 있다.
+- 여러 단위 테스트를 하나의 통합된 테스트로 수행할 때 적합하다.
+- @SpringBootTest annotation을 사용하면 실제 구동되는 Application과 동일하게 Application Context를 로드하여 테스트한다.
+- Application의 규모가 클수록 테스트 속도가 느려진다.
+- Test Scope Dependencies(자동으로 갖는 의존성)
+  - Junit
+  - Spring Test & Spring Boot Test
+  - AssertJ
+  - Hamcrest
+  - Mockito
+  - JSONassert
+  - JsonPath
+- 옵션
+  - properties : {key=value} 형식으로 프로퍼티를 추가할 수 있다.
+  - classes : Application Context에 로드할 클래스를 지정한다. 따로 지정하지 않으면 @SpringBootConfiguration을 찾아 로드한다.
+  - webEnvironment : Application이 실행될 때의 웹 환경을 설정할 수 있다. 기본값은 Mock Servlet을 로드하여 구동된다.
+  - ex) 
+        @SpringBootTest(
+          propertiex = {
+            "property.value=propertyTest",
+            "value=test"
+          },
+           classes = {AppConfig.class},
+           webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT //
+        )
+
+#### @RunWith(SpringRunner.class)
+- @RunWith annotation 사용 시 JUnit에 내장된 Runner를 사용하는 대신 annotation에 정의된 Runner 클래스를 사용한다.
+- @SpringBootTest annotation 사용하려면 JUnit의 SpringJUnit4ClassRunner 클래스를 상속받는 @RunWith(SpringRunner.class)를 꼭 붙여서 사용해야 정상 동작한다.
+
+#### @ContextConfiguration(Alasses = AppConfig.class)
+
+#### @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
+#### @WebAppConfiguration
+
+#### @AutoConfigureMockMvc
+
+#### @TestPropertySource("classpath:application.yml")
+
+#### @Sql({"classpath:schema.sql", "classpath:data.sql"})
+
+#### @Rollback(false)
+
+#### @Transactional
+- 테스트에서 @Transactional annotation을 사용하면 테스트가 종료된 후 수정된 데이터가 롤백된다.
+
+
+[참고1](https://cheese10yun.github.io/spring-boot-test/)
