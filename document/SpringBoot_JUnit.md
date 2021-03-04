@@ -39,7 +39,11 @@
 - @RunWith annotation 사용 시 JUnit에 내장된 Runner를 사용하는 대신 annotation에 정의된 Runner 클래스를 사용한다.
 - @SpringBootTest annotation 사용하려면 JUnit의 SpringJUnit4ClassRunner 클래스를 상속받는 @RunWith(SpringRunner.class)를 꼭 붙여서 사용해야 정상 동작한다.
 
-#### @ContextConfiguration(Alasses = AppConfig.class)
+#### @ContextConfiguration(classes = AppConfig.class)
+- 자동으로 만들어줄 Application Context의 설정 파일 위치를 지정한다.
+- classes 옵션으로 .class파일을 지정하거나 locations 옵션으로 .xml 파일을 지정할 수 있다.
+- @Autowired가 붙은 인스턴스 변수가 있으면 테스트 Context는 변수 타입과 일치하는 Bean을 탐색한다.
+- 만약 @Autowired가 TestController testController; 변수에 붙어있다면 AppConfig.java내에 구현되어 있는 @Bean TestController를 찾아 인스턴스 변수에 주입한다.
 
 #### @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
