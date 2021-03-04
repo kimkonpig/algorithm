@@ -1,5 +1,6 @@
-### SpringBoot JUnit 테스트 시 사용하는 annotation을 정리해보았다.
-
+## SpringBoot
+###  1. JUnit 테스트 시 사용하는 annotation을 정리해보았다.
+ 
 #### @SpringBootTest
 - 통합테스트를 제공하는 기본적인 SpringBoot Test annotation이다.
 - Application이 실행될 때 설정을 임의로 바꾸어 테스트를 진행할 수 있다.
