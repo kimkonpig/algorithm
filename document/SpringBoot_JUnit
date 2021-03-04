@@ -5,6 +5,7 @@
 - Application이 실행될 때 설정을 임의로 바꾸어 테스트를 진행할 수 있다.
 - 여러 단위 테스트를 하나의 통합된 테스트로 수행할 때 적합하다.
 - @SpringBootTest annotation을 사용하면 실제 구동되는 Application과 동일하게 Application Context를 로드하여 테스트한다.
+- @Configuration annotation을 사용하는 클래스가 있다면 클래스 내부에서 @Bean annotation을 통해 생성되는 Bean도 모두 등록 가능하다.
 - Application의 규모가 클수록 테스트 속도가 느려진다.
 - Test Scope Dependencies(자동으로 갖는 의존성)
   - Junit
@@ -14,10 +15,15 @@
   - Mockito
   - JSONassert
   - JsonPath
-- 옵션
+- 속성
   - properties : {key=value} 형식으로 프로퍼티를 추가할 수 있다.
   - classes : Application Context에 로드할 클래스를 지정한다. 따로 지정하지 않으면 @SpringBootConfiguration을 찾아 로드한다.
-  - webEnvironment : Application이 실행될 때의 웹 환경을 설정할 수 있다. 기본값은 Mock Servlet을 로드하여 구동된다.
+  - webEnvironment : Application이 실행될 때의 웹 환경을 설정할 수 있다.
+                     기본값은 @SpringBootTest.WebEnvironment.MOCK이다.
+                     WebEnvironment.MOCK 설정 시 - 실제 서블릿 컨테이너를 띄우지 않고, 서블릿 컨테이너를 mocking한 것이 실행된다.
+                                                 - 서버 입장에서 구현한 API를 통해 비즈니스 로직이 문제없이 수행되는지 테스트한다.(@MockMvc)
+                     WebEnvironment.RANDOM_PORT 설정 시 - SpringBoot의 내장 서버를 랜덤 포트로 띄운다. 실제 서블릿 컨테이너를 띄운다.
+                                                        - 클라이언트 입장에서 RestTemplate을 사용하듯이 테스트한다.(@TestRestTemplate)
   - ex) 
         @SpringBootTest(
           propertiex = {
@@ -25,7 +31,7 @@
             "value=test"
           },
            classes = {AppConfig.class},
-           webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT //
+           webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
         )
 
 #### @RunWith(SpringRunner.class)
@@ -48,6 +54,8 @@
 
 #### @Transactional
 - 테스트에서 @Transactional annotation을 사용하면 테스트가 종료된 후 수정된 데이터가 롤백된다.
+- WebEnvironment.RANDOM_PORT / DEFINED_PORT를 사용하면 실제 테스트 서버는 별도의 스레드에서 테스트를 수행하므로 트랜잭션이 롤백되지 않는다.
 
 
 [참고1](https://cheese10yun.github.io/spring-boot-test/)
+[참고2](https://lalwr.blogspot.com/2019/09/spring-test.html)
