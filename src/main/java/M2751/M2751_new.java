@@ -4,7 +4,7 @@ import java.io.*;
 
 //https://www.daleseo.com/sort-merge/
 //mergeSort 
-public class M2751 {
+public class M2751_new {
 
 	static int[] arr;
 	static int[] temp;
