@@ -1,4 +1,4 @@
-package study;
+package main.java.M2751;
 
 import java.io.*;
 import java.util.Arrays;

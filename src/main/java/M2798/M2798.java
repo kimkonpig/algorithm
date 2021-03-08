@@ -1,4 +1,4 @@
-package M2798;
+package main.java.M2798;
 
 import java.io.*;
 import java.util.Arrays;
