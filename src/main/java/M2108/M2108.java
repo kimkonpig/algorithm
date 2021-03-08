@@ -27,7 +27,7 @@ public class M2108 {
         }
 
         //sum을 나누면 소수점 발생할 수 있으니까 sum은 double타입으로 설정, 반올림한 결과는 (int)로 형변환 해준다.
-        sb.append((int) Math.round(sum / N)).append("\n");
+        sb.append(Math.round(sum / (double)N)).append("\n");
         /* 1. 산술평균 end */
 
         /* 2. 중앙값 start */
@@ -63,11 +63,11 @@ public class M2108 {
         }*/
 
         //sb.append(maxIndex + "\n");
-        sb.append(mode + "\n");
+        sb.append(mode).append("\n");
         /* 3. 최빈값 end */
 
         /* 4. 범위 start */
-        sb.append(rstArr[N-1]-rstArr[0]);
+        sb.append(Math.abs(rstArr[N-1]-rstArr[0]));
         /* 4. 범위 end */
 
         System.out.print(sb.toString());
@@ -85,21 +85,18 @@ public class M2108 {
             Counting Sort 1.
             정렬 전 arr 배열의 value와 동일한 countArr 배열의 index의 value에 +1
          */
-        for(int i=0 ; i<arr.length ; i++){
+        for (int value : arr) {
             //arr에는 음수값이 있을 수 있으므로 +4000을 해준다. 4000을 0번째 index라고 생각하면 된다.
-            countArr[arr[i]+4000]++;
+            countArr[value + 4000]++;
         }
 
         //최빈값 구하기 포함
         int maxCount = 0;
         int count = 0;
 
-        for(int i=0 ; i<countArr.length ; i++){
-            if(maxCount < countArr[i]) maxCount = countArr[i];
-        }
 
         for(int i=0 ; i<countArr.length ; i++){
-            if(countArr[i] == maxCount){
+            if(countArr[i] == maxCount && count == 0){
                 count++;
                 mode = i-4000;
             }
@@ -117,6 +114,9 @@ public class M2108 {
             countArr[val+4000]--;
             rstArr[countArr[val+4000]] = val;
         }
+
+        /*for(int num : rstArr)
+            System.out.print("rstArr: " + num + " ");*/
 
         return rstArr;
     }
