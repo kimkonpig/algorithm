@@ -1,3 +1,4 @@
+package main.java.M1181;
 //Fail !!!
 
 import java.io.BufferedReader;
@@ -8,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class Main {
+public class M1181 {
 
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -33,13 +34,15 @@ public class Main {
 				}
 			}
 		});
-		
+
 		for(int i=0 ; i<arr.length-1 ; i++){
 			if(!arr[i].equals(arr[i+1])){
 				bw.write(arr[i] + "\n");
 			}
 		}
-		
+
+		bw.write(arr[N-1]);
+
 		br.close();
 		bw.flush();
 		bw.close();
