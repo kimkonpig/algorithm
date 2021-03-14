@@ -12,7 +12,6 @@ public class M15649 {
     public static int[] rst;
     public static int N;
     public static int M;
-
     public static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
     //백트래킹의 방법 중 하나인 DFS 사용
@@ -34,6 +33,8 @@ public class M15649 {
     }
 
     public static void dfs(int depth) throws IOException{
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
         if(depth == M){
             //결과 출력
             for(int a : rst){
