@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 //이해 안간다.. 다시 보자...
-
+//http://blog.naver.com/potter777777/221024789385
 public class M9663 {
 	public static int count = 0; //퀸 개수 체크
 	public static int N;
