@@ -1,4 +1,4 @@
-package study;
+package main.java.M2580;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +26,7 @@ public class M2580 {
 		}
 		
 		sudoku(0, 0);
+		br.close();
 
 	}
 	

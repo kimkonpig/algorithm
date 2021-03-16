@@ -1,4 +1,4 @@
-package study;
+package main.java.M9663;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,7 +49,6 @@ public class M9663 {
 			 * 대각선에 놓여있는 경우 기울기는 |1| 임을 이용한다.
 			 * |(y2 - y1) / (x2 - x1)| = 1 
 			*/
-			
 			if(Math.abs(i - col) == Math.abs(row[i] - row[col])){
 				return false;
 			}
