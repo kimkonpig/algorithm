@@ -40,7 +40,7 @@ public class M9184 {
         }else{
             //w(a-1, b, c) + w(a-1, b-1, c) + w(a-1, b, c-1) - w(a-1, b-1, c-1)
 
-
         }
+        return 0;
     }
 }
