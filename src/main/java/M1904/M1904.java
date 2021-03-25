@@ -18,7 +18,6 @@ public class M1904 {
         for(int i=3 ; i<dp.length ; i++){
             dp[i] = -1;
         }
-
         System.out.print(fibo(N));
     }
 
