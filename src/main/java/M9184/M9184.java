@@ -1,75 +1,62 @@
 package main.java.M9184;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class M9184 {
 
-    static int[][][] memo;
-    static int sum = 0;
-    static int a2 = 0;
-    static int b2 = 0;
-    static int c2 = 0;
+    static int[][][] memo = new int[21][21][21]; //20이상이면 w(20, 20, 20)호출하므로 메모이제이션 배열 크기 (0~20)
 
     public static void main(String[] args) throws IOException {
-        memo = new int[101][101][101];
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         while (true) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             StringTokenizer st = new StringTokenizer(br.readLine(), " ");
             int a, b, c;
-            int result = 0;
+            int result;
+
 
             a = Integer.parseInt(st.nextToken());
             b = Integer.parseInt(st.nextToken());
             c = Integer.parseInt(st.nextToken());
 
             if(a==-1 && b==-1 && c==-1){
-                return;
+                break;
             }else {
                 result = wFunc(a, b, c);
-                System.out.println("w(" + a + ", " + b + ", " + c + ") = " + result);
+                bw.append("w(" + a + ", " + b + ", " + c + ") = " + result + "\n");
             }
         }
+
+        bw.flush();
+        br.close();
+        bw.close();
     }
 
-    private static int wFunc(int a1, int b1, int c1){
-        if(a1<=0 || b1<=0 || c1<=0){
-            memo[a1][b1][c1] = 1;
-            sum += 1;
-        }else if(a1>20 || b1>20 || c1>20){
-            if(memo[a1][b1][c1] == 0){
-                memo[a1][b1][c1] = wFunc(20, 20, 20);
-            }
-            sum += memo[a1][b1][c1];
-        }else if(a1<b1 && b1<c1){
-            b2 = b1-1;
-            c2 = c1-1;
-            if(memo[a1][b1][c2] == 0) {
-                memo[a1][b1][c2] = wFunc(a1, b1, c2);
-            }else if(memo[a1][b2][c2] == 0) {
-                memo[a1][b2][c2] = wFunc(a1, b2, c2);
-            }else if(memo[a1][b2][c1] == 0) {
-                memo[a1][b2][c1] = wFunc(a1, b2, c1);
-            }
-            sum += memo[a1][b1][c2] + memo[a1][b2][c2] + memo[a1][b2][c1];
-        }else{
-            a2 = a1-1;
-            b2 = b1-1;
-            c2 = c1-1;
-            if(memo[a2][b1][c1] == 0) {
-                memo[a2][b1][c1] = wFunc(a2, b1, c1);
-            }else if(memo[a2][b2][c1] == 0) {
-                memo[a2][b2][c1] = wFunc(a2, b2, c1);
-            }else if(memo[a2][b1][c2] == 0) {
-                memo[a2][b1][c2] = wFunc(a2, b1, c2);
-            }else if(memo[a2][b2][c2] == 0) {
-                memo[a2][b2][c2] = wFunc(a2, b2, c2);
-            }
-            sum += memo[a2][b1][c1] + memo[a2][b2][c1] + memo[a2][b1][c2] - memo[a2][b2][c2];
+    private static int wFunc(int a, int b, int c){
+        if(rangeCheck(a, b, c) && memo[a][b][c] != 0){
+            return memo[a][b][c];
         }
-        return sum;
+
+        if(a<=0 || b<=0 || c<=0){
+            return 1;
+        }else if(a>20 || b>20 || c>20){
+            memo[20][20][20] = wFunc(20, 20, 20);
+            return memo[20][20][20];
+        }else if(a<b && b<c){
+            memo[a][b][c] = wFunc(a, b, c-1) + wFunc(a, b-1, c-1) - wFunc(a, b-1, c);
+            return memo[a][b][c];
+        }
+
+        memo[a][b][c] = wFunc(a-1, b, c) + wFunc(a-1, b-1, c)
+                + wFunc(a-1, b, c-1) - wFunc(a-1, b-1, c-1);
+
+        return memo[a][b][c];
+    }
+
+    private static boolean rangeCheck(int a, int b, int c){
+        return 0<=a && a<=20 && 0<=b && b<=20 && 0<=c && c<=20;
     }
 }
