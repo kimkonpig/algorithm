@@ -4,6 +4,7 @@
  - REpresentational State Transfer<br/>
  - 웹서비스를 개발할 때 사용되는 아키텍처의 일종<br/>
  - 특정 언어나 프레임워크 등이 아닌 http를 사용하는 통신에서 고려해야 하는 개발 방법론 또는 구조<br/>
+ - RestAPI의 요소 : Method(POST, GET, PUT DELETE), Resource(URI), Message(json, xml 같은 포맷)
  - 웹사이트의 컨텐츠(텍스트, 이미지, 동영상), DB 내용 등을 전부 하나의 자원으로 파악하여<br/>
  각 자원의 고유한 URI(Uniform Resource Identifier)를 부여한다.<br/>
  - 해당 자원에 대한 CRUD 작업을 HTTP 기본 메소를 통해 처리한다.<br/>
