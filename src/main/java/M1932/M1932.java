@@ -18,7 +18,6 @@ public class M1932 {
                 triangle[i][j] = Integer.parseInt(st.nextToken());
             }
         }
-
         System.out.print(solution(triangle, n));
     }
 
