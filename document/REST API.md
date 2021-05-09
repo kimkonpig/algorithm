@@ -20,3 +20,15 @@
 6. 자체 표현 구조 : RestAPI는 메시지만 보고도 해당 API 기능에 대한 이해가 쉬운 구조로 되어야 한다.
 
 서버를 RestAPI로 개발하면 http를 사용하는 모든 클라이언트들은 해당 서버와 통신을 할 수 있게 되어 하나의 서버와 클라이언트가 1:N의 관계를 갖게 된다는 장점이 있다.
+
+
+#### URI vs URL
+- 모든 URL은 URI라고 할 수 있지만 모든 URI는 URL이라고 할 수 없다.
+- URI : 자원의 식별자(파라미터)<br/>
+- URL : 자원의 위치를 알려주는 유일한 주소<br/>
+<br/>
+https://example.com/123의 경우 URI 이지만 URL은 아님<br/>
+https://example.com 까지가 URL, 123이라는 식별자를 이용해 내가 원하는 정보에 도달<br/>
+<br/>
+https://example.com/one/two/abc.html의 경우 URL이면서 URI<br/>
+
