@@ -26,4 +26,11 @@
 |주요 적용 분야|트랜잭션 프로세싱|데이터와 UI프로세싱|
 |현재의 문제점|어려운 사용법, 무거운 프로토콜|표준의 부재, 어려운 관리|
 
+
+<h1> REST API </h1>
+
+
+<h1> JDBC-MESSAGE </h1>
+
+
 [SOAP, RESTful WebService 참고](https://helloworld-88.tistory.com/62)
